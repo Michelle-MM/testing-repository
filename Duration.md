@@ -1,0 +1,1 @@
+<p>The duration is one month or 12 months</p>
