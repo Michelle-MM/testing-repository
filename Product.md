@@ -1,1 +1,1 @@
-<P>Two products are included, which is Coworking Spaces and Virtual Offices</p>
+<P> Multiple products are included, which are Priavte Offices, Coworking Spaces, Virtual Offices, Meeting Rooms, and Event Spaces</p>
