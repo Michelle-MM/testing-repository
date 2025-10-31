@@ -31,7 +31,8 @@
     }
     
     .Container img{
-    height: 150px;
+    width: 220px;
+    height: auto;
     border-radius: 50%;
     }
     
@@ -52,8 +53,10 @@
     font-size: 1rem;
     }
     #intro {
-        background-image: url(Images/robot-dreams-wallpapers.jpg);
-        background-repeat: round;
+        background-image: url(../Images/robot-dreams-wallpapers.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
         }
         #about{
         background-color: bisque;
