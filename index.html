@@ -61,13 +61,20 @@
 <section id="gallery">
 <div class="container">
 <h1>Gallery</h1>
-<div class="gallery-grid">
-<img src="Images/Article-SingaporeLimitedLiabilityCompanyRegistrationCostRequirement-Header.jpg" alt="LLC Registration Header">
-<img src="Images/Article-OfficeRentalPlatforms2025Strategy-Header.jpg" alt="Office Rental Platforms 2025 Header">
-<img src="Images/Article-SingaporeLimitedLiabilityCompanyRegistrationCostRequirement-Room.jpg" alt="LLC Registration Room">
-<img src="Images/Article-TecFlexibleGlobalWorkspacesBusinessCircle-Workstations.jpg" alt="TEC Flexible Workspaces Workstations">
-<img src="Images/Article-SingaporeLimitedLiabilityCompanyRegistrationCostRequirement-Exterior.jpg" alt="LLC Registration Exterior">
-</div>
+
+<div class="carousel" aria-roledescription="carousel">
+  <div class="carousel-track">
+    <div class="carousel-slide"><img src="Images/Article-SingaporeLimitedLiabilityCompanyRegistrationCostRequirement-Header.jpg" alt="LLC Registration Header"></div>
+    <div class="carousel-slide"><img src="Images/Article-OfficeRentalPlatforms2025Strategy-Header.jpg" alt="Office Rental Platforms 2025 Header"></div>
+    <div class="carousel-slide"><img src="Images/Article-SingaporeLimitedLiabilityCompanyRegistrationCostRequirement-Room.jpg" alt="LLC Registration Room"></div>
+    <div class="carousel-slide"><img src="Images/Article-TecFlexibleGlobalWorkspacesBusinessCircle-Workstations.jpg" alt="TEC Flexible Workspaces Workstations"></div>
+    <div class="carousel-slide"><img src="Images/Article-SingaporeLimitedLiabilityCompanyRegistrationCostRequirement-Exterior.jpg" alt="LLC Registration Exterior"></div>
+  </div>
+  <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
+  <button class="carousel-btn next" aria-label="Next slide">›</button>
+  <div class="carousel-dots" role="tablist" aria-label="Choose slide"></div>
+ </div>
+
 </div>
 </section>
 
@@ -99,6 +106,9 @@
 <!-- Back to top button -->
 <button id="backToTop" type="button" aria-label="Back to top" style="display:none;">↑</button>
 
+<!-- Sticky CTA: Email me -->
+<a id="ctaEmail" href="mailto:michellemamamht@gmail.com" aria-label="Email Michelle">Email me</a>
+
 <!-- Interaction scripts -->
 <script>
 // Smooth scroll for in-page links
@@ -122,27 +132,62 @@ backBtn.addEventListener('click', function(){
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// Lightbox for gallery images
-var lightbox = document.getElementById('lightbox');
-var lightboxImg = lightbox.querySelector('.lightbox-image');
-var backdrop = lightbox.querySelector('.lightbox-backdrop');
-document.querySelectorAll('.gallery-grid img').forEach(function(img){
-  img.style.cursor = 'zoom-in';
-  img.addEventListener('click', function(){
-    lightboxImg.src = this.src;
-    lightbox.style.display = 'flex';
-    lightbox.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-  });
-});
-function closeLightbox(){
-  lightbox.style.display = 'none';
-  lightbox.setAttribute('aria-hidden', 'true');
-  lightboxImg.src = '';
-  document.body.style.overflow = '';
-}
-backdrop.addEventListener('click', closeLightbox);
-document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeLightbox(); } });
+// Carousel logic
+(function(){
+  var track = document.querySelector('.carousel-track');
+  if(!track) return;
+  var slides = Array.from(document.querySelectorAll('.carousel-slide'));
+  var prevBtn = document.querySelector('.carousel-btn.prev');
+  var nextBtn = document.querySelector('.carousel-btn.next');
+  var dotsContainer = document.querySelector('.carousel-dots');
+  var index = 0;
+  var timer; var autoplayMs = 3500; var isPointerDown = false; var startX = 0; var deltaX = 0;
+
+  function renderDots(){
+    dotsContainer.innerHTML = '';
+    slides.forEach(function(_, i){
+      var dot = document.createElement('button');
+      dot.className = 'carousel-dot' + (i === index ? ' active' : '');
+      dot.setAttribute('aria-label', 'Slide ' + (i+1));
+      dot.addEventListener('click', function(){ goTo(i); restart(); });
+      dotsContainer.appendChild(dot);
+    });
+  }
+  function update(){
+    var width = track.clientWidth; // equal to carousel width via CSS
+    track.style.transform = 'translateX(' + (-index * width) + 'px)';
+    renderDots();
+  }
+  function goTo(i){ index = (i + slides.length) % slides.length; update(); }
+  function next(){ goTo(index+1); }
+  function prev(){ goTo(index-1); }
+  function start(){ timer = setInterval(next, autoplayMs); }
+  function stop(){ clearInterval(timer); }
+  function restart(){ stop(); start(); }
+
+  nextBtn.addEventListener('click', function(){ next(); restart(); });
+  prevBtn.addEventListener('click', function(){ prev(); restart(); });
+  window.addEventListener('resize', update);
+
+  // Drag / swipe
+  var carousel = document.querySelector('.carousel');
+  function onDown(x){ isPointerDown = true; startX = x; stop(); }
+  function onMove(x){ if(!isPointerDown) return; deltaX = x - startX; track.style.transition = 'none'; track.style.transform = 'translateX(' + (-(index * track.clientWidth) + deltaX) + 'px)'; }
+  function onUp(){
+    if(!isPointerDown) return; isPointerDown = false; track.style.transition = '';
+    if(Math.abs(deltaX) > track.clientWidth * 0.2){ if(deltaX < 0) next(); else prev(); } else { update(); }
+    deltaX = 0; restart();
+  }
+  carousel.addEventListener('mousedown', function(e){ onDown(e.clientX); });
+  window.addEventListener('mousemove', function(e){ onMove(e.clientX); });
+  window.addEventListener('mouseup', onUp);
+  carousel.addEventListener('touchstart', function(e){ onDown(e.touches[0].clientX); }, {passive:true});
+  carousel.addEventListener('touchmove', function(e){ onMove(e.touches[0].clientX); }, {passive:true});
+  window.addEventListener('touchend', onUp);
+
+  // Init
+  renderDots(); update(); start();
+})();
 </script>
 </body>
 </html>
