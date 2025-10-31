@@ -40,7 +40,7 @@
     font-size: 3em;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
-    .Container p, ul{
+    .Container p, .Container ul{
     margin-top: 2%;
     font-size: 1.5rem;
     }
@@ -52,7 +52,7 @@
     font-size: 1rem;
     }
     #intro {
-        background-image: url(/Images/robot-dreams-wallpapers.jpg);
+        background-image: url(Images/robot-dreams-wallpapers.jpg);
         background-repeat: round;
         }
         #about{
