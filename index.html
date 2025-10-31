@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My personal website</title>
+<title>Michelle MM - Digital Project Executive | Personal Portfolio</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -12,6 +12,7 @@
 <ul>
 <li><a href="#intro">Home</a></li>
 <li><a href="#about">About Me</a></li>
+<li><a href="#gallery">Gallery</a></li>
 <li><a href="#contact">Contact Me</a></li>
 </ul>
 </nav>
@@ -20,49 +21,68 @@
 <section id="intro">
 <div class="Container">
 <img src="Images/Portrait.JPG" alt="The portrait of me">
-<h2>I am Michelle MM. I am a professional officer currently working at The Executive Centre</h2>
-<p>Welcome to my personal site. I’m passionate about digital projects, operations excellence, and building experiences that delight users.</p>
+<h2>Michelle MM</h2>
+<p style="font-size: 1.3rem; font-weight: 500; margin-top: 16px;">Digital Project Executive at The Executive Centre</p>
+<p>Welcome to my personal website. I'm passionate about digital projects, operations excellence, and building experiences that delight users. Let's connect and create something amazing together!</p>
 </div> 
 </section>
 
 <section id="about">
 <div class="container">
 <h1>About Me</h1>
-<p>Wanna know more about me?</p>
+<p>Get to know more about my background, skills, and experience</p>
+<div style="background: white; padding: 24px; border-radius: 16px; margin-bottom: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+<h2>Professional Role</h2>
 <ul>
-<li>Digital Project Executive</li>
-<li>The Executive Centre</li>
-<li>Student of Bachelor(Hons) of Management from Hang Seng University of Hong Kong</li>
+<li>📍 Digital Project Executive at The Executive Centre</li>
+<li>🎓 Student pursuing Bachelor (Hons) of Management at Hang Seng University of Hong Kong</li>
 </ul>
-<h2>Skills</h2>
+</div>
+
+<h2>Core Skills</h2>
 <ul>
-<li>Project coordination, stakeholder communication, and timeline management</li>
-<li>Website content updates, basic HTML/CSS, CMS operations</li>
-<li>Data analysis, reporting, and process improvement</li>
+<li>🚀 Project coordination, stakeholder communication, and timeline management</li>
+<li>💻 Website content updates, HTML/CSS development, and CMS operations</li>
+<li>📊 Data analysis, reporting, and continuous process improvement</li>
 </ul>
-<h2>Experience</h2>
+
+<h2>Professional Experience</h2>
 <ul>
-<li>Managed cross-functional initiatives improving team efficiency and client satisfaction</li>
-<li>Supported website and marketing launches with on-time delivery</li>
-<li>Collaborated with designers and engineers to refine user journeys</li>
+<li>✨ Managed cross-functional initiatives that improved team efficiency and client satisfaction</li>
+<li>🎯 Supported multiple website and marketing launches with consistent on-time delivery</li>
+<li>🤝 Collaborated with designers and engineers to refine user journeys and experiences</li>
 </ul>
+
 <h2>Education</h2>
-<p>Bachelor (Hons) of Management, Hang Seng University of Hong Kong</p>
+<p style="background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: inline-block; min-width: 100%;">🎓 Bachelor (Hons) of Management<br><span style="color: #6b7280; font-size: 1rem;">Hang Seng University of Hong Kong</span></p>
+</div>
+</section>
+
+<section id="gallery">
+<div class="container">
+<h1>Gallery</h1>
+<div class="gallery-grid">
+<img src="Images/Article-SingaporeLimitedLiabilityCompanyRegistrationCostRequirement-Header.jpg" alt="LLC Registration Header">
+<img src="Images/Article-OfficeRentalPlatforms2025Strategy-Header.jpg" alt="Office Rental Platforms 2025 Header">
+<img src="Images/Article-SingaporeLimitedLiabilityCompanyRegistrationCostRequirement-Room.jpg" alt="LLC Registration Room">
+<img src="Images/Article-TecFlexibleGlobalWorkspacesBusinessCircle-Workstations.jpg" alt="TEC Flexible Workspaces Workstations">
+<img src="Images/Article-SingaporeLimitedLiabilityCompanyRegistrationCostRequirement-Exterior.jpg" alt="LLC Registration Exterior">
+</div>
 </div>
 </section>
 
 <section id="contact">
 <div class="container">
-<h1>Contact me</h1>
-<p>Feel free to contact me</p>
+<h1>Get In Touch</h1>
+<p>I'd love to hear from you! Feel free to reach out through any of these channels</p>
 <ul>
-<li>Email ID: <a href="mailto:michellemamamht@gmail.com">michellemamamht@gmail.com</a></li>
-<li>Insta ID: micmht</li>
-<li>Facebook ID: Michelle Ma</li>
-<li>LinkedIn: <a href="#" target="_blank" rel="noopener noreferrer">View my profile</a></li>
-<li>GitHub: <a href="#" target="_blank" rel="noopener noreferrer">See my projects</a></li>
+<li>📧 Email: <a href="mailto:michellemamamht@gmail.com">michellemamamht@gmail.com</a></li>
+<li>📷 Instagram: <a href="https://instagram.com/micmht" target="_blank" rel="noopener noreferrer">@micmht</a></li>
+<li>👥 Facebook: <a href="#" target="_blank" rel="noopener noreferrer">Michelle Ma</a></li>
+<li>💼 LinkedIn: <a href="#" target="_blank" rel="noopener noreferrer">Connect with me on LinkedIn</a></li>
+<li>💻 GitHub: <a href="#" target="_blank" rel="noopener noreferrer">View my projects on GitHub</a></li>
 </ul>
-<p>Based in Hong Kong • Open to exciting project collaborations</p>
+<p>📍 Based in Hong Kong • 🌟 Open to exciting project collaborations and opportunities</p>
 </div>
 </section>
 
@@ -70,5 +90,59 @@
 <footer>
 <p>© Copyright Michelle MM Co LTd.</p>
 </footer>
+<!-- Lightbox overlay for gallery -->
+<div id="lightbox" aria-hidden="true" style="display:none;">
+<div class="lightbox-backdrop" role="button" tabindex="0"></div>
+<img class="lightbox-image" alt="Expanded gallery image">
+</div>
+
+<!-- Back to top button -->
+<button id="backToTop" type="button" aria-label="Back to top" style="display:none;">↑</button>
+
+<!-- Interaction scripts -->
+<script>
+// Smooth scroll for in-page links
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
+  anchor.addEventListener('click', function(e){
+    var targetId = this.getAttribute('href');
+    var target = document.querySelector(targetId);
+    if(target){
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+
+// Back to top visibility and behavior
+var backBtn = document.getElementById('backToTop');
+window.addEventListener('scroll', function(){
+  backBtn.style.display = window.scrollY > 300 ? 'block' : 'none';
+});
+backBtn.addEventListener('click', function(){
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Lightbox for gallery images
+var lightbox = document.getElementById('lightbox');
+var lightboxImg = lightbox.querySelector('.lightbox-image');
+var backdrop = lightbox.querySelector('.lightbox-backdrop');
+document.querySelectorAll('.gallery-grid img').forEach(function(img){
+  img.style.cursor = 'zoom-in';
+  img.addEventListener('click', function(){
+    lightboxImg.src = this.src;
+    lightbox.style.display = 'flex';
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  });
+});
+function closeLightbox(){
+  lightbox.style.display = 'none';
+  lightbox.setAttribute('aria-hidden', 'true');
+  lightboxImg.src = '';
+  document.body.style.overflow = '';
+}
+backdrop.addEventListener('click', closeLightbox);
+document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ closeLightbox(); } });
+</script>
 </body>
 </html>
