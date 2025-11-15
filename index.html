@@ -31,7 +31,7 @@
 <div class="container">
 <h1>About Me</h1>
 <p>Get to know more about my background, skills, and experience</p>
-<div style="background: white; padding: 24px; border-radius: 16px; margin-bottom: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+<div style="background: rgb(255, 255, 255); padding: 24px; border-radius: 16px; margin-bottom: 32px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
 <h2>Professional Role</h2>
 <ul>
 <li>📍 Digital Project Executive at The Executive Centre</li>
@@ -78,6 +78,78 @@
 <li>📷 Instagram: <a href="https://instagram.com/micmht" target="_blank" rel="noopener noreferrer">@micmht</a></li>
 </ul>
 <p>📍 Based in Hong Kong • 🌟 Open to exciting project collaborations and opportunities</p>
+</div>
+</section>
+
+<section id="contact-form">
+<div class="container">
+<h1>Contact Me</h1>
+<p>Send me a message and I'll get back to you as soon as possible</p>
+<form id="contactForm" novalidate>
+<div class="form-group">
+<label for="name">Name *</label>
+<input type="text" id="name" name="name" required>
+<span class="error-message"></span>
+</div>
+<div class="form-group">
+<label for="email">Email *</label>
+<input type="email" id="email" name="email" required>
+<span class="error-message"></span>
+</div>
+<div class="form-group">
+<label for="phone">Phone Number</label>
+<input type="number" id="phone" name="phone" placeholder="e.g., 1234567890">
+<span class="error-message"></span>
+</div>
+<div class="form-group">
+<label for="password">Password</label>
+<input type="password" id="password" name="password" placeholder="Enter password">
+<span class="error-message"></span>
+</div>
+<div class="form-group">
+<label for="inquiry-type">Inquiry Type *</label>
+<select id="inquiry-type" name="inquiry-type" required>
+<option value="">Please select...</option>
+<option value="general">General Inquiry</option>
+<option value="collaboration">Project Collaboration</option>
+<option value="job">Job Opportunity</option>
+<option value="other">Other</option>
+</select>
+<span class="error-message"></span>
+</div>
+<div class="form-group">
+<label>Preferred Contact Method *</label>
+<div class="radio-group">
+<div class="radio-option">
+<input type="radio" id="contact-email" name="contact-method" value="email" required>
+<label for="contact-email">Email</label>
+</div>
+<div class="radio-option">
+<input type="radio" id="contact-phone" name="contact-method" value="phone" required>
+<label for="contact-phone">Phone</label>
+</div>
+<div class="radio-option">
+<input type="radio" id="contact-both" name="contact-method" value="both" required>
+<label for="contact-both">Both</label>
+</div>
+</div>
+<span class="error-message"></span>
+</div>
+<div class="form-group">
+<label class="checkbox-label">
+<input type="checkbox" id="terms" name="terms" value="accepted" required>
+<span>I agree to the terms and conditions *</span>
+</label>
+<span class="error-message"></span>
+</div>
+<div class="form-group">
+<label for="message">Message *</label>
+<textarea id="message" name="message" rows="6" required></textarea>
+<span class="error-message"></span>
+</div>
+<button type="submit" class="submit-btn">Send Message</button>
+<div id="formMessage" class="form-message"></div>
+</form>
 </div>
 </section>
 
@@ -175,6 +247,154 @@ backBtn.addEventListener('click', function(){
 
   // Init
   renderDots(); update(); start();
+})();
+
+// Contact form handling
+(function(){
+  var form = document.getElementById('contactForm');
+  if(!form) return;
+  
+  var formMessage = document.getElementById('formMessage');
+  
+  function showFieldError(fieldId, message){
+    var fieldEl = document.getElementById(fieldId);
+    if(!fieldEl) return;
+    var errorEl = fieldEl.parentElement.querySelector('.error-message');
+    if(errorEl){
+      errorEl.textContent = message;
+    }
+    if(fieldEl.type !== 'radio' && fieldEl.type !== 'checkbox'){
+      fieldEl.style.borderColor = '#ef4444';
+    }
+  }
+  
+  function clearFieldError(fieldId){
+    var fieldEl = document.getElementById(fieldId);
+    if(!fieldEl) return;
+    var errorEl = fieldEl.parentElement.querySelector('.error-message');
+    if(errorEl){
+      errorEl.textContent = '';
+    }
+    if(fieldEl.type !== 'radio' && fieldEl.type !== 'checkbox'){
+      fieldEl.style.borderColor = '';
+    }
+  }
+  
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    
+    // Clear previous messages
+    formMessage.textContent = '';
+    formMessage.className = 'form-message';
+    document.querySelectorAll('.error-message').forEach(function(el){
+      el.textContent = '';
+    });
+    document.querySelectorAll('input, textarea, select').forEach(function(el){
+      if(el.type !== 'radio' && el.type !== 'checkbox'){
+        el.style.borderColor = '';
+      }
+    });
+    
+    // Get form values
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var phone = document.getElementById('phone').value.trim();
+    var password = document.getElementById('password').value;
+    var inquiryType = document.getElementById('inquiry-type').value;
+    var contactMethod = form.querySelector('input[name="contact-method"]:checked');
+    var terms = document.getElementById('terms').checked;
+    var message = document.getElementById('message').value.trim();
+    
+    // Basic validation
+    var isValid = true;
+    
+    if(!name){
+      showFieldError('name', 'This field is required');
+      isValid = false;
+    }
+    
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      showFieldError('email', email ? 'Please enter a valid email address' : 'This field is required');
+      isValid = false;
+    }
+    
+    if(phone && isNaN(phone)){
+      showFieldError('phone', 'Please enter a valid phone number');
+      isValid = false;
+    }
+    
+    if(!inquiryType){
+      showFieldError('inquiry-type', 'Please select an inquiry type');
+      isValid = false;
+    }
+    
+    if(!contactMethod){
+      var radioGroup = document.querySelector('.radio-group').parentElement;
+      var errorEl = radioGroup.querySelector('.error-message');
+      if(errorEl){
+        errorEl.textContent = 'Please select a contact method';
+      }
+      isValid = false;
+    }
+    
+    if(!terms){
+      var termsLabel = document.getElementById('terms').closest('.form-group');
+      var errorEl = termsLabel.querySelector('.error-message');
+      if(errorEl){
+        errorEl.textContent = 'You must agree to the terms and conditions';
+      }
+      isValid = false;
+    }
+    
+    if(!message){
+      showFieldError('message', 'This field is required');
+      isValid = false;
+    }
+    
+    if(!isValid){
+      formMessage.textContent = 'Please fix the errors above';
+      formMessage.className = 'form-message error';
+      return;
+    }
+    
+    // Show success message
+    formMessage.textContent = 'Thank you for your message! I\'ll get back to you soon.';
+    formMessage.className = 'form-message success';
+    
+    // Reset form
+    form.reset();
+    
+    // Note: In a real application, you would send the form data to a server here
+    // For now, this is just client-side validation and feedback
+  });
+  
+  // Clear error on input
+  form.querySelectorAll('input, textarea, select').forEach(function(field){
+    field.addEventListener('input', function(){
+      clearFieldError(this.id);
+      if(this.type === 'radio' || this.type === 'checkbox'){
+        var group = this.closest('.form-group');
+        if(group){
+          var errorEl = group.querySelector('.error-message');
+          if(errorEl){
+            errorEl.textContent = '';
+          }
+        }
+      }
+    });
+    
+    if(field.type === 'radio' || field.type === 'checkbox'){
+      field.addEventListener('change', function(){
+        var group = this.closest('.form-group');
+        if(group){
+          var errorEl = group.querySelector('.error-message');
+          if(errorEl){
+            errorEl.textContent = '';
+          }
+        }
+      });
+    }
+  });
 })();
 </script>
 </body>
