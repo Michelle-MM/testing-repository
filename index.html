@@ -84,28 +84,56 @@
 <section id="contact-form">
 <div class="container">
 <h1>Contact Me</h1>
-<p>Send me a message and I'll get back to you as soon as possible</p>
+<p>By filling in the Contact Us form, you will register to become our member.</p>
 <form id="contactForm" novalidate>
+  <div class="form-group">
+    <label>Title *</label>
+    <div class="radio-group">
+    <div class="radio-option">
+    <input type="radio" id="title-mr" name="title" value="mr" required>
+    <label for="title-mr">Mr.</label>
+    </div>
+    <div class="radio-option">
+    <input type="radio" id="title-ms" name="title" value="ms" required>
+    <label for="title-ms">Ms.</label>
+    </div>
+    <div class="radio-option">
+    <input type="radio" id="title-mrs" name="title" value="mrs" required>
+    <label for="title-mrs">Mrs.</label>
+    </div>
+    </div>
+    <span class="error-message"></span>
+    </div>
 <div class="form-group">
 <label for="name">Name *</label>
-<input type="text" id="name" name="name" required>
+<input type="text" id="name" name="name" placeholder="Michelle" required>
 <span class="error-message"></span>
 </div>
 <div class="form-group">
 <label for="email">Email *</label>
-<input type="email" id="email" name="email" required>
+<input type="email" id="email" name="email" placeholder="mm@gmail.com" required>
 <span class="error-message"></span>
 </div>
 <div class="form-group">
-<label for="phone">Phone Number</label>
-<input type="number" id="phone" name="phone" placeholder="e.g., 1234567890">
+<label for="phone">Phone Number *</label>
+<input type="tel" id="phone" name="phone" placeholder="(+852) 9876 5432" minlength="8" maxlength="20" required>
 <span class="error-message"></span>
 </div>
 <div class="form-group">
-<label for="password">Password</label>
-<input type="password" id="password" name="password" placeholder="Enter password">
+  <label for="account-name">Account Name for Member Login *</label>
+  <input type="text" id="account-name" name="account-name" placeholder="MM" required>
+  <span class="error-message"></span>
+  </div>
+<div class="form-group">
+<label for="password">Password for Member Login</label>
+<input type="password" id="password" name="password" placeholder="Aa12345678">
 <span class="error-message"></span>
 </div>
+<div class="form-group">
+  <label for="date">Inquiry Date</label>
+  <input type="date" id="date" name="date">
+  <span class="error-message"></span>
+  </div>
 <div class="form-group">
 <label for="inquiry-type">Inquiry Type *</label>
 <select id="inquiry-type" name="inquiry-type" required>
@@ -136,15 +164,22 @@
 <span class="error-message"></span>
 </div>
 <div class="form-group">
-<label class="checkbox-label">
-<input type="checkbox" id="terms" name="terms" value="accepted" required>
-<span>I agree to the terms and conditions *</span>
-</label>
-<span class="error-message"></span>
-</div>
+  <label class="checkbox-label">
+  <input type="checkbox" id="terms" name="terms" value="accepted" required>
+  <span>I agree to send my data to Michelle MM Co LTd. *</span>
+  </label>
+  <span class="error-message"></span>
+  </div>
+<div class="form-group">
+  <label class="checkbox-label">
+  <input type="checkbox" id="opt-in" name="opt-in" value="accepted">
+  <span>I want to receive updates from Michelle MM Co LTd.</span>
+  </label>
+  <span class="error-message"></span>
+  </div>
 <div class="form-group">
 <label for="message">Message *</label>
-<textarea id="message" name="message" rows="6" required></textarea>
+<textarea id="message" name="message" rows="6" placeholder="e.g., Please leave a message here." required></textarea>
 <span class="error-message"></span>
 </div>
 <button type="submit" class="submit-btn">Send Message</button>
@@ -296,7 +331,9 @@ backBtn.addEventListener('click', function(){
     });
     
     // Get form values
+    var title = form.querySelector('input[name="title"]:checked');
     var name = document.getElementById('name').value.trim();
+    var accountName = document.getElementById('account-name').value.trim();
     var email = document.getElementById('email').value.trim();
     var phone = document.getElementById('phone').value.trim();
     var password = document.getElementById('password').value;
@@ -308,18 +345,35 @@ backBtn.addEventListener('click', function(){
     // Basic validation
     var isValid = true;
     
+    if(!title){
+      var titleGroup = document.querySelector('input[name="title"]').closest('.form-group');
+      var errorEl = titleGroup.querySelector('.error-message');
+      if(errorEl){
+        errorEl.textContent = 'Please select a title';
+      }
+      isValid = false;
+    }
+    
     if(!name){
-      showFieldError('name', 'This field is required');
+      showFieldError('name', 'Please enter your name');
+      isValid = false;
+    }
+    
+    if(!accountName){
+      showFieldError('account-name', 'Please enter your account name');
       isValid = false;
     }
     
     if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
-      showFieldError('email', email ? 'Please enter a valid email address' : 'This field is required');
+      showFieldError('email', email ? 'Please enter a valid email address' : 'Please enter your email');
       isValid = false;
     }
     
-    if(phone && isNaN(phone)){
-      showFieldError('phone', 'Please enter a valid phone number');
+    if(!phone){
+      showFieldError('phone', 'Please fill in a valid phone number');
+      isValid = false;
+    } else if(phone.length < 8 || phone.length > 20){
+      showFieldError('phone', 'Phone number must be between 8 and 20 characters');
       isValid = false;
     }
     
@@ -329,10 +383,13 @@ backBtn.addEventListener('click', function(){
     }
     
     if(!contactMethod){
-      var radioGroup = document.querySelector('.radio-group').parentElement;
-      var errorEl = radioGroup.querySelector('.error-message');
-      if(errorEl){
-        errorEl.textContent = 'Please select a contact method';
+      var contactMethodGroups = document.querySelectorAll('input[name="contact-method"]');
+      if(contactMethodGroups.length > 0){
+        var radioGroup = contactMethodGroups[0].closest('.form-group');
+        var errorEl = radioGroup.querySelector('.error-message');
+        if(errorEl){
+          errorEl.textContent = 'Please select a contact method';
+        }
       }
       isValid = false;
     }
@@ -341,24 +398,24 @@ backBtn.addEventListener('click', function(){
       var termsLabel = document.getElementById('terms').closest('.form-group');
       var errorEl = termsLabel.querySelector('.error-message');
       if(errorEl){
-        errorEl.textContent = 'You must agree to the terms and conditions';
+        errorEl.textContent = 'Please agree to send your data to the Company';
       }
       isValid = false;
     }
     
     if(!message){
-      showFieldError('message', 'This field is required');
+      showFieldError('message', 'Please leave a message here');
       isValid = false;
     }
     
     if(!isValid){
-      formMessage.textContent = 'Please fix the errors above';
+      formMessage.textContent = 'Please fill in the above required fields';
       formMessage.className = 'form-message error';
       return;
     }
     
     // Show success message
-    formMessage.textContent = 'Thank you for your message! I\'ll get back to you soon.';
+    formMessage.textContent = 'Thank you for your message! I\'ll get back to you as soon as possible. Please stay tuned.';
     formMessage.className = 'form-message success';
     
     // Reset form
