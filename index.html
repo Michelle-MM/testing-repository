@@ -470,8 +470,11 @@ backBtn.addEventListener('click', function(){
         formMessage.textContent = 'Thank you for your message! I\'ll get back to you as soon as possible. Please stay tuned.';
         formMessage.className = 'form-message success';
         
-        // Reset form
+        // Reset form and redirect to thank-you page
         form.reset();
+        setTimeout(function(){
+          window.location.href = 'thank-you.html';
+        }, 1500);
       } else {
         // Show error message from Mailchimp
         var errorMsg = data.msg || 'There was an error submitting your form. Please try again.';

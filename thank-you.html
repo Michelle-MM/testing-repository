@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You | Michelle MM</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    body{
+      background: linear-gradient(180deg, #eef2ff 0%, #ffffff 45%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header{
+      justify-content: center;
+    }
+    .thankyou-section{
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 16px;
+    }
+    .thankyou-card{
+      max-width: 640px;
+      width: 100%;
+      background: #ffffff;
+      padding: 48px 40px;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.15);
+      text-align: center;
+      animation: fadeInUp 0.6s ease;
+    }
+    .thankyou-check{
+      width: 72px;
+      height: 72px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 32px;
+      margin-bottom: 24px;
+      box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+    }
+    .thankyou-card h1{
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      margin-bottom: 12px;
+    }
+    .thankyou-card p{
+      color: #4b5563;
+      margin-bottom: 24px;
+    }
+    .thankyou-card .meta{
+      font-size: 0.95rem;
+      color: #6b7280;
+      margin-bottom: 32px;
+    }
+    .thankyou-actions{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .thankyou-actions a{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: 999px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .thankyou-actions a.primary{
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      color: #fff;
+      box-shadow: 0 12px 25px rgba(99, 102, 241, 0.35);
+    }
+    .thankyou-actions a.secondary{
+      background: #f3f4f6;
+      color: #111827;
+    }
+    .thankyou-actions a:hover{
+      transform: translateY(-2px);
+    }
+    footer{
+      margin-top: auto;
+    }
+    @media (max-width: 640px){
+      .thankyou-card{
+        padding: 40px 28px;
+      }
+      .thankyou-actions{
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="index.html#intro">Home</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#gallery">Gallery</a></li>
+        <li><a href="index.html#contact-form">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="thankyou-section">
+    <div class="thankyou-card">
+      <div class="thankyou-check">✓</div>
+      <h1>Thank you for reaching out!</h1>
+      <p>Your inquiry has been received and I’ll reply as soon as possible.</p>
+      <p class="meta">You’ll also receive a confirmation email at the address you provided.</p>
+      <div class="thankyou-actions">
+        <a class="primary" href="index.html#contact-form">Submit another message</a>
+        <a class="secondary" href="index.html">Back to homepage</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© Copyright Michelle MM Co LTd.</p>
+  </footer>
+</body>
+</html>
+
