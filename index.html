@@ -85,7 +85,7 @@
 <div class="container">
 <h1>Contact Me</h1>
 <p>By filling in the Contact Us form, you will register to become our member.</p>
-<form id="contactForm" novalidate>
+<form id="contactForm" action="https://app.us7.list-manage.com/subscribe/post?u=ef523bb16d90a282c8f7b4251&amp;id=9f98a2d433&amp;f_id=00cca8e0f0" method="post" novalidate>
   <div class="form-group">
     <label>Title *</label>
     <div class="radio-group">
@@ -106,23 +106,27 @@
     </div>
 <div class="form-group">
 <label for="firstName">First Name *</label>
-<input type="text" id="firstName" name="firstName" placeholder="Michelle" required>
+<input type="text" id="firstName" name="FNAME" placeholder="Michelle" required>
 <span class="error-message"></span>
 </div>
 <div class="form-group">
 <label for="lastName">Last Name *</label>
-<input type="text" id="lastName" name="lastName" placeholder="Ma" required>
+<input type="text" id="lastName" name="LNAME" placeholder="Ma" required>
 <span class="error-message"></span>
 </div>
 <div class="form-group">
 <label for="email">Email *</label>
-<input type="email" id="email" name="email" placeholder="mm@gmail.com" required>
+<input type="email" id="email" name="EMAIL" placeholder="mm@gmail.com" required>
 <span class="error-message"></span>
 </div>
 <div class="form-group">
 <label for="phone">Phone Number *</label>
-<input type="tel" id="phone" name="phone" placeholder="(+852) 9876 5432" minlength="8" maxlength="20" required>
+<input type="tel" id="phone" name="PHONE" placeholder="(+852) 9876 5432" minlength="8" maxlength="20" required>
 <span class="error-message"></span>
+</div>
+<!-- Mailchimp bot protection field -->
+<div aria-hidden="true" style="position: absolute; left: -5000px;">
+  <input type="text" name="b_ef523bb16d90a282c8f7b4251_9f98a2d433" tabindex="-1" value="">
 </div>
 <div class="form-group">
   <label for="account-name">Account Name for Member Login *</label>
@@ -430,15 +434,54 @@ backBtn.addEventListener('click', function(){
       return;
     }
     
-    // Show success message
-    formMessage.textContent = 'Thank you for your message! I\'ll get back to you as soon as possible. Please stay tuned.';
-    formMessage.className = 'form-message success';
+    // Submit to Mailchimp using JSONP
+    var formData = {
+      u: 'ef523bb16d90a282c8f7b4251',
+      id: '9f98a2d433',
+      f_id: '00cca8e0f0',
+      FNAME: firstName,
+      LNAME: lastName,
+      EMAIL: email,
+      PHONE: phone
+    };
     
-    // Reset form
-    form.reset();
+    // Build query string
+    var queryString = Object.keys(formData).map(function(key) {
+      return encodeURIComponent(key) + '=' + encodeURIComponent(formData[key]);
+    }).join('&');
     
-    // Note: In a real application, you would send the form data to a server here
-    // For now, this is just client-side validation and feedback
+    // Create callback function name
+    var callbackName = 'mailchimpCallback_' + Date.now();
+    
+    // Create script element for JSONP
+    var script = document.createElement('script');
+    script.src = 'https://app.us7.list-manage.com/subscribe/post-json?' + queryString + '&c=' + callbackName;
+    
+    // Set up callback
+    window[callbackName] = function(data) {
+      // Clean up
+      delete window[callbackName];
+      if(script.parentNode){
+        document.body.removeChild(script);
+      }
+      
+      if(data.result === 'success'){
+        // Show success message
+        formMessage.textContent = 'Thank you for your message! I\'ll get back to you as soon as possible. Please stay tuned.';
+        formMessage.className = 'form-message success';
+        
+        // Reset form
+        form.reset();
+      } else {
+        // Show error message from Mailchimp
+        var errorMsg = data.msg || 'There was an error submitting your form. Please try again.';
+        formMessage.textContent = errorMsg;
+        formMessage.className = 'form-message error';
+      }
+    };
+    
+    // Add script to page
+    document.body.appendChild(script);
   });
   
   // Clear error on input
