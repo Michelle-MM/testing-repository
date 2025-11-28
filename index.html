@@ -105,8 +105,13 @@
     <span class="error-message"></span>
     </div>
 <div class="form-group">
-<label for="name">Name *</label>
-<input type="text" id="name" name="name" placeholder="Michelle" required>
+<label for="firstName">First Name *</label>
+<input type="text" id="firstName" name="firstName" placeholder="Michelle" required>
+<span class="error-message"></span>
+</div>
+<div class="form-group">
+<label for="lastName">Last Name *</label>
+<input type="text" id="lastName" name="lastName" placeholder="Ma" required>
 <span class="error-message"></span>
 </div>
 <div class="form-group">
@@ -332,7 +337,8 @@ backBtn.addEventListener('click', function(){
     
     // Get form values
     var title = form.querySelector('input[name="title"]:checked');
-    var name = document.getElementById('name').value.trim();
+    var firstName = document.getElementById('firstName').value.trim();
+    var lastName = document.getElementById('lastName').value.trim();
     var accountName = document.getElementById('account-name').value.trim();
     var email = document.getElementById('email').value.trim();
     var phone = document.getElementById('phone').value.trim();
@@ -354,8 +360,13 @@ backBtn.addEventListener('click', function(){
       isValid = false;
     }
     
-    if(!name){
-      showFieldError('name', 'Please enter your name');
+    if(!firstName){
+      showFieldError('firstName', 'Please enter your first name');
+      isValid = false;
+    }
+    
+    if(!lastName){
+      showFieldError('lastName', 'Please enter your last name');
       isValid = false;
     }
     
